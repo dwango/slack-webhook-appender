@@ -4,7 +4,7 @@
   <groupId>jp.co.dwango</groupId>
   <artifactId>slack-webhook-appender</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <name>slack-webhook-appender</name>
   <url>https://github.com/dwango/slack-webhook-appender</url>
 
