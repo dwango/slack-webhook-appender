@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>jp.co.dwango</groupId>
+  <artifactId>slack-webhook-appender</artifactId>
+  <versioning>
+    <versions>
+      <version>1.0-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20161226105529</lastUpdated>
+  </versioning>
+</metadata>
