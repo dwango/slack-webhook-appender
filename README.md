@@ -6,7 +6,7 @@ Logback appender which posts logs to slack via incoming webhook.
 
 ### pom.xml
 
-```
+```xml
     <repositories>
         <repository>
             <id>slack-webhook-appender</id>
@@ -25,7 +25,7 @@ Logback appender which posts logs to slack via incoming webhook.
 
 ### logback.xml
 
-```
+```xml
 <configuration>
 
     <appender name="SLACK" class="jp.co.dwango.logback.SlackWebhookAppender">
