@@ -1,6 +1,7 @@
 # slack-webhook-appender
 Logback appender which posts logs to slack via incoming webhook.
 
+[![Build Status](https://travis-ci.org/dwango/slack-webhook-appender.svg?branch=master)](https://travis-ci.org/dwango/slack-webhook-appender)
 
 ## Usage
 
