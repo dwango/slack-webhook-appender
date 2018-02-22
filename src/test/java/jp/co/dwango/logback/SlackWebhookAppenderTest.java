@@ -1,5 +1,6 @@
 package jp.co.dwango.logback;
 
+import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.spi.LoggingEvent;
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -24,19 +25,33 @@ public class SlackWebhookAppenderTest {
     @Test
     public void testBuildsMessage() {
         AppenderForTest appender = new AppenderForTest();
-        appender.setChannel("channel");
-        appender.setUsername("username");
-        appender.setIconEmoji("icon-emoji");
-        appender.setIconUrl("icon-url");
-        appender.setLinkNames(true);
+        appender.setWebhookUrl("https://hooks.slack.com/services/ABCDEF/GHIJK/LMNOPQR");
+        appender.setPayload(
+            "{ " +
+            "  \"channel\": \"#channel\", " +
+            "  \"username\": \"username\", " +
+            "  \"icon_emoji\": emoji, " +
+            "  \"link_names\": 1, " +
+            "  \"attachments\": [{ " +
+            "    \"title\": \"title\", " +
+            "    \"color\": color, " +
+            "    \"fields\": [{ " +
+            "      \"title\": \"Message\", " +
+            "      \"value\": event.getFormattedMessage(), " +
+            "      \"short\": false " +
+            "    }] " +
+            "  }] " +
+            "} ");
+        appender.start();
 
         LoggingEvent event = new LoggingEvent();
+        event.setLevel(Level.INFO);
         event.setMessage("text \"quoted\"");
-
+        
         appender.append(event);
-
+        
         String actual = new String(appender.body, StandardCharsets.UTF_8);
-        String expected = "{ \"text\": \"text \\\"quoted\\\"\", \"channel\": \"channel\", \"username\": \"username\", \"icon_emoji\": \"icon-emoji\", \"icon_url\": \"icon-url\", \"link_names\": 1 }";
+        String expected = "{\"channel\":\"#channel\",\"username\":\"username\",\"icon_emoji\":\":white_circle:\",\"link_names\":1,\"attachments\":[{\"title\":\"title\",\"color\":\"good\",\"fields\":[{\"title\":\"Message\",\"value\":\"text \\\"quoted\\\"\",\"short\":false}]}]}";
         Assert.assertEquals(expected, actual);
     }
 
