@@ -16,7 +16,7 @@ import java.util.regex.Matcher;
 /**
  * Logback appender implementation which posts logs to Slack via webhook.
  */
-public class SlackWebhookAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
+public class SlackWebhookAppenderBc extends UnsynchronizedAppenderBase<ILoggingEvent> {
 
     private static final int TIMEOUT_MILLIS = 50_000;
 

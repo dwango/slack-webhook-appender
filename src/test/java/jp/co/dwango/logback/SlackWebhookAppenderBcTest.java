@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-public class SlackWebhookAppenderTest {
+public class SlackWebhookAppenderBcTest {
 
-    static class AppenderForTest extends SlackWebhookAppender {
+    static class AppenderForTest extends SlackWebhookAppenderBc {
         public byte[] body = null;
 
         @Override
