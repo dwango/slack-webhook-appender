@@ -83,8 +83,8 @@ Logback appender which posts logs to slack via incoming webhook.
 |Key|Required|Detail|
 |:----|:----|:----|
 |webhookUrl|Y|URL of incoming webhook.|
-|timeout|N|Timeout of posting to Slack in millisecounds. (Default 50,000 millisecounds)|
-|payload|Y|Payload written in Javascript to send to Slack.|
+|timeout|N|Timeout of posting to Slack in milliseconds. (Default 50,000 milliseconds)|
+|payload|Y|Payload written in JavaScript to send to Slack.|
 
 #### Payload specification
 
