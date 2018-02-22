@@ -12,7 +12,7 @@ import java.nio.charset.StandardCharsets;
 
 public class SlackWebhookAppenderBcTest {
 
-    static class AppenderForTest extends SlackWebhookAppenderBc {
+    static class AppenderForTest extends SlackWebhookAppender {
         public byte[] body = null;
 
         @Override
@@ -22,6 +22,7 @@ public class SlackWebhookAppenderBcTest {
     }
 
     @Test
+    @SuppressWarnings("deprecation")
     public void testBuildsMessage() {
         AppenderForTest appender = new AppenderForTest();
         appender.setChannel("channel");
