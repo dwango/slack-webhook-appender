@@ -163,11 +163,11 @@ public class SlackWebhookAppender extends UnsynchronizedAppenderBase<ILoggingEve
     private void initScriptEngine() throws ScriptException {
         String payload = this.payload;
         if(payload == null) {
-            throw new IllegalStateException("Pyaload is null");
+            throw new IllegalStateException("Payload is null");
         }
         payload = payload.trim();
         if(payload.isEmpty()) {
-            throw new IllegalStateException("Pyaload is empty");
+            throw new IllegalStateException("Payload is empty");
         }
         
         // looks up and creates JavaScript engine
