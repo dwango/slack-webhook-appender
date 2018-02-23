@@ -26,7 +26,7 @@ import ch.qos.logback.core.UnsynchronizedAppenderBase;
  * Logback appender implementation which posts logs to Slack via webhook.
  */
 public class SlackWebhookAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
-    /** default timeout in millisecounds */
+    /** default timeout in milliseconds */
     private static final int DEFAULT_TIMEOUT_MILLIS = 50_000;
     
     /** {@link ScriptEngineManager} */
@@ -157,7 +157,7 @@ public class SlackWebhookAppender extends UnsynchronizedAppenderBase<ILoggingEve
     /**
      * Initializes a {@link ScriptEngine}
      * 
-     * @throws ScriptException if an error occurrs in payload script.
+     * @throws ScriptException if an error occurs in payload script.
      * @throws IllegalStateException if {@link #payload} field is null or empty
      */
     private void initScriptEngine() throws ScriptException {
