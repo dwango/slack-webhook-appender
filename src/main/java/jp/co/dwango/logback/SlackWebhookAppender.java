@@ -271,21 +271,19 @@ public class SlackWebhookAppender extends UnsynchronizedAppenderBase<ILoggingEve
         Exception ex = null;
         
         // by hostname command
-        if(hostname == null) {
-            try {
-                Process proc = Runtime.getRuntime().exec("hostname");
-                int exitCode = proc.waitFor();
-                if(exitCode == 0) {
-                    try(BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));) {
-                        hostname = reader.readLine();
-                    }
+        try {
+            Process proc = Runtime.getRuntime().exec("hostname");
+            int exitCode = proc.waitFor();
+            if(exitCode == 0) {
+                try(BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));) {
+                    hostname = reader.readLine();
                 }
-            } catch (IOException | InterruptedException e) {
-                hostname = null;
-                ex = e;
             }
+        } catch (IOException | InterruptedException e) {
+            hostname = null;
+            ex = e;
         }
-        
+
         // by DNS
         if(hostname == null) {
             try {
