@@ -275,7 +275,7 @@ public class SlackWebhookAppender extends UnsynchronizedAppenderBase<ILoggingEve
             Process proc = Runtime.getRuntime().exec("hostname");
             int exitCode = proc.waitFor();
             if(exitCode == 0) {
-                try(BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));) {
+                try(BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()))) {
                     hostname = reader.readLine();
                 }
             }
