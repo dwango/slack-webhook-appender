@@ -92,7 +92,7 @@ public class SlackWebhookAppenderBc extends UnsynchronizedAppenderBase<ILoggingE
 
     @Override
     protected void append(ILoggingEvent eventObject) {
-        List<String> fields = new ArrayList<String>();
+        List<String> fields = new ArrayList<>();
 
         try {
             String text = createText(eventObject);
