@@ -1,19 +1,13 @@
 package jp.co.dwango.logback;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 
-import javax.script.Bindings;
 import javax.script.Invocable;
-import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -173,10 +167,6 @@ public class SlackWebhookAppender extends UnsynchronizedAppenderBase<ILoggingEve
         // looks up and creates JavaScript engine
         this.engine = SCRIPT_MANAGER.getEngineByName("js");
         
-        // bind hostname
-        Bindings bindings = engine.getBindings(ScriptContext.ENGINE_SCOPE);
-        bindings.put("hostname", resolveHostname());
-        
         // define formatTimestamp function
         engine.eval(
             "function formatTimestamp(timestamp) { " +
@@ -270,49 +260,6 @@ public class SlackWebhookAppender extends UnsynchronizedAppenderBase<ILoggingEve
         }
     }
 
-    /**
-     * Resolves hostname
-     * 
-     * @return hostname
-     */
-    private static String resolveHostname() {
-        String hostname = null;
-        Exception ex = null;
-        
-        // by hostname command
-        try {
-            Process proc = Runtime.getRuntime().exec("hostname");
-            int exitCode = proc.waitFor();
-            if(exitCode == 0) {
-                try(BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()))) {
-                    hostname = reader.readLine();
-                }
-            }
-        } catch (IOException | InterruptedException e) {
-            hostname = null;
-            ex = e;
-        }
-
-        // by DNS
-        if(hostname == null) {
-            try {
-                hostname = InetAddress.getLocalHost().getHostName();
-            } catch (UnknownHostException e) {
-                if(ex == null) {
-                    ex = e;
-                } else {
-                    ex.addSuppressed(e);
-                }
-            }
-        }
-        
-        if(hostname == null) {
-            throw new RuntimeException("The hostname could not be resolved", ex);
-        } else {
-            return hostname.trim();
-        }
-    }
-    
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     //   B A C K W A R D   C O M P A T I B I L I T Y
