@@ -93,8 +93,9 @@ Logback appender which posts logs to slack via incoming webhook.
 
 |Variable Name|Type|Description|
 |:----|:----|:----|
-|hostname|string|Hostname where the event occurred|
 |event|ILoggingEvent|The representation of logging events. see [API](https://logback.qos.ch/apidocs/ch/qos/logback/classic/spi/ILoggingEvent.html)|
+|property(name)|function|A function to get a property in which only context properties or system properties are accessible. For a key passed as argument, the property() methods return the String value of the property.|
+|hostname|string|Hostname where the event occurred|
 |level|string|Log level. eg. FATAL, ERROR, WARN, INFO, DEBUG, TRACE.|
 |timestamp|string|Time when the event occurred. eg. 2018-02-21T19:00:25.827+09:00|
 |message|string|The message of logging events.|

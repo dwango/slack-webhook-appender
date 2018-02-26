@@ -190,9 +190,18 @@ public class SlackWebhookAppender extends UnsynchronizedAppenderBase<ILoggingEve
         // define payload function
         StringBuilder function = new StringBuilder();
         function.append("function payload(event) {");
-        function.append(  "var color, emoji, level = event.getLevel().toString(),");
-        function.append(      "timestamp = formatTimestamp(event.getTimeStamp()),");
-        function.append(      "message = event.getFormattedMessage();");
+        function.append(  "var property = (function() {");
+        function.append(      "var lcvo = event.getLoggerContextVO(),");
+        function.append(          "properties = lcvo.getPropertyMap();");
+        function.append(      "return function(name) {");
+        function.append(        "var value = properties.get(name);");
+        function.append(        "return value != null ? value : java.lang.System.getProperty(name);");
+        function.append(      "};");
+        function.append(    "})(), color, emoji,");
+        function.append(    "hostname = property('HOSTNAME'),");
+        function.append(    "level = event.getLevel().toString(),");
+        function.append(    "timestamp = formatTimestamp(event.getTimeStamp()),");
+        function.append(    "message = event.getFormattedMessage();");
         function.append(  "if(level == 'FATAL' || level == 'ERROR') {");
         function.append(    "color = 'danger'; emoji = ':ng_woman:';");
         function.append(  "} else if(level == 'WARN') {");
@@ -203,7 +212,7 @@ public class SlackWebhookAppender extends UnsynchronizedAppenderBase<ILoggingEve
         if(payload.startsWith("{")) {
             function.append("return ");
             function.append(payload);
-            function.append(  ";");
+            function.append(";");
         } else {
             function.append(payload);
         }
