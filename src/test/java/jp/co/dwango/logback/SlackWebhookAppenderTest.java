@@ -1,15 +1,19 @@
 package jp.co.dwango.logback;
 
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.spi.LoggingEvent;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.spi.LoggerContextVO;
+import ch.qos.logback.classic.spi.LoggingEvent;
 
 public class SlackWebhookAppenderTest {
 
@@ -33,7 +37,7 @@ public class SlackWebhookAppenderTest {
             "  \"icon_emoji\": emoji, " +
             "  \"link_names\": 1, " +
             "  \"attachments\": [{ " +
-            "    \"title\": \"title\", " +
+            "    \"title\": \"title - \" + hostname, " +
             "    \"color\": color, " +
             "    \"fields\": [{ " +
             "      \"title\": \"Message\", " +
@@ -44,14 +48,19 @@ public class SlackWebhookAppenderTest {
             "} ");
         appender.start();
 
+        Map<String, String> properties = new HashMap<>();
+        properties.put("CONTEXT_NAME", "textContext");
+        properties.put("HOSTNAME", "test.local");
+        
         LoggingEvent event = new LoggingEvent();
         event.setLevel(Level.INFO);
         event.setMessage("text \"quoted\"");
+        event.setLoggerContextRemoteView(new LoggerContextVO("test", properties, 123L));
         
         appender.append(event);
         
         String actual = new String(appender.body, StandardCharsets.UTF_8);
-        String expected = "{\"channel\":\"#channel\",\"username\":\"username\",\"icon_emoji\":\":white_circle:\",\"link_names\":1,\"attachments\":[{\"title\":\"title\",\"color\":\"good\",\"fields\":[{\"title\":\"Message\",\"value\":\"text \\\"quoted\\\"\",\"short\":false}]}]}";
+        String expected = "{\"channel\":\"#channel\",\"username\":\"username\",\"icon_emoji\":\":white_circle:\",\"link_names\":1,\"attachments\":[{\"title\":\"title - test.local\",\"color\":\"good\",\"fields\":[{\"title\":\"Message\",\"value\":\"text \\\"quoted\\\"\",\"short\":false}]}]}";
         Assert.assertEquals(expected, actual);
     }
 
