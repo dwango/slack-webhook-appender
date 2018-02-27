@@ -184,6 +184,10 @@ public class SlackWebhookAppender extends UnsynchronizedAppenderBase<ILoggingEve
         function.append(      "var lcvo = event.getLoggerContextVO(),");
         function.append(          "properties = lcvo.getPropertyMap();");
         function.append(      "return function(name) {");
+        function.append(        "if(!name && name !== 0) {");
+        function.append(          "return 'Property_HAS_NO_KEY';");
+        function.append(        "}");
+        function.append(        "name = '' + name;");
         function.append(        "var value = properties.get(name);");
         function.append(        "return value != null ? value : java.lang.System.getProperty(name);");
         function.append(      "};");
