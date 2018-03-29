@@ -61,7 +61,7 @@ releaseProcess := Seq[ReleaseStep](
       inTempDir("git", "commit", "-m", s"Maven artifacts for ${v}")
       SimpleReader.readLine(s"push to ${mvnRepoBranch}? (y/n)?") match {
         case Some(s) if s.toLowerCase == "y" =>
-          inTempDir("git", "push", remoteURL, "${mvnRepoBranch}:${mvnRepoBranch}")
+          inTempDir("git", "push", remoteURL, s"${mvnRepoBranch}:${mvnRepoBranch}")
         case _ =>
           sys.error("abort release")
       }
