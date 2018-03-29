@@ -100,7 +100,7 @@ public class SlackWebhookAppender extends UnsynchronizedAppenderBase<ILoggingEve
      * @param timeout timeout
      */
     public void setTimeout(String timeout) {
-        this.timeout = Integer.valueOf(timeout);
+        this.timeout = Integer.parseInt(timeout);
     }
 
     /**
