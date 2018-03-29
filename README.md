@@ -211,3 +211,7 @@ return {
 |iconEmoji|N|icon of the user; you probably want colons like `:smiley:`|
 |iconUrl|N|icon of the user|
 |linkNames|N|(`true` / `false`) If `false`, you will not be notified by posing message which includes `@channel`, `@{username}` and so forth (`true` by default)|
+
+#### release
+
+`sbt release`
