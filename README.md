@@ -19,7 +19,7 @@ Logback appender which posts logs to slack via incoming webhook.
         <dependency>
             <groupId>jp.co.dwango</groupId>
             <artifactId>slack-webhook-appender</artifactId>
-            <version>1.0</version> <!-- replace with the latest version -->
+            <version>0.2.0</version> <!-- replace with the latest version -->
         </dependency>
     </dependencies>
 ```
