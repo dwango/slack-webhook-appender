@@ -20,7 +20,7 @@ fork in Test := true
 
 testOptions += Tests.Argument(TestFrameworks.JUnit, "-v")
 
-val logbackVersion = "1.1.11"
+val logbackVersion = "1.2.3"
 
 libraryDependencies ++= Seq(
   "ch.qos.logback" % "logback-core" % logbackVersion,
