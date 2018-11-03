@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>jp.co.dwango</groupId>
+    <artifactId>slack-webhook-appender</artifactId>
+    <packaging>jar</packaging>
+    <description>Logback appender which posts logs to slack via incoming webhook</description>
+    <url>https://github.com/dwango/slack-webhook-appender</url>
+    <version>0.2.1</version>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://raw.githubusercontent.com/dwango/slack-webhook-appender/master/LICENSE</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <name>slack-webhook-appender</name>
+    <organization>
+        <name>jp.co.dwango</name>
+        <url>https://github.com/dwango/slack-webhook-appender</url>
+    </organization>
+    <dependencies>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.1.11</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.1.11</version>
+        </dependency>
+        <dependency>
+            <groupId>com.novocode</groupId>
+            <artifactId>junit-interface</artifactId>
+            <version>0.11</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
