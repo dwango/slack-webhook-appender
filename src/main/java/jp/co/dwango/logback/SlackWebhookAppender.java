@@ -228,6 +228,9 @@ public class SlackWebhookAppender extends UnsynchronizedAppenderBase<ILoggingEve
         try {
             Invocable invocable = (Invocable)engine;
             Object payload = invocable.invokeFunction("payload", eventObject);
+            if(payload == null) {
+                return;
+            }
 
             Object JSON = engine.get("JSON");
             Object payloadStr = invocable.invokeMethod(JSON, "stringify", payload);
