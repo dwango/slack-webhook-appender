@@ -63,6 +63,34 @@ public class SlackWebhookAppenderTest {
         String expected = "{\"channel\":\"#channel\",\"username\":\"username\",\"icon_emoji\":\":white_circle:\",\"link_names\":1,\"attachments\":[{\"title\":\"title - test.local\",\"color\":\"good\",\"fields\":[{\"title\":\"Message\",\"value\":\"text \\\"quoted\\\"\",\"short\":false}]}]}";
         Assert.assertEquals(expected, actual);
     }
+    
+    /**
+     * Test canceling post when returning null 
+     */
+    @Test
+    public void testCancelPost() {
+        byte[] body = "expect unchanging".getBytes();
+        
+        AppenderForTest appender = new AppenderForTest();
+        appender.body = body;
+        appender.setWebhookUrl("https://hooks.slack.com/services/ABCDEF/GHIJK/LMNOPQR");
+        appender.setPayload(
+            "return null;");
+        appender.start();
+
+        Map<String, String> properties = new HashMap<>();
+        properties.put("CONTEXT_NAME", "textContext");
+        properties.put("HOSTNAME", "test.local");
+        
+        LoggingEvent event = new LoggingEvent();
+        event.setLevel(Level.INFO);
+        event.setMessage("text \"quoted\"");
+        event.setLoggerContextRemoteView(new LoggerContextVO("test", properties, 123L));
+        
+        appender.append(event);
+        
+        Assert.assertArrayEquals(body, appender.body);
+    }
 
     @Ignore
     public void testPost() {
